@@ -1,0 +1,127 @@
+-- Table: public.centre
+
+-- DROP TABLE public.centre;
+
+CREATE TABLE public.centre
+(
+    "ID" integer NOT NULL,
+    "Name" text COLLATE pg_catalog."default",
+    "Address" text COLLATE pg_catalog."default",
+    "Status" boolean,
+    CONSTRAINT centre_pkey PRIMARY KEY ("ID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.centre
+    OWNER to postgres;
+
+-------------------------------------------------
+
+-- Table: public.kyc_id
+
+-- DROP TABLE public.kyc_id;
+
+CREATE TABLE public.kyc_id
+(
+    "ID" integer NOT NULL,
+    "Aadhar_Number" integer,
+    "PAN_Number" integer,
+    "Passport_Number" integer,
+    CONSTRAINT kyc_id_pkey PRIMARY KEY ("ID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.kyc_id
+    OWNER to postgres;
+
+
+-------------------------------
+\
+-- Table: public.master_address
+
+-- DROP TABLE public.master_address;
+
+CREATE TABLE public.master_address
+(
+    "ID" integer NOT NULL,
+    "Permanent_Address" integer NOT NULL,
+    "Current_Address" integer NOT NULL,
+    CONSTRAINT master_address_pkey PRIMARY KEY ("ID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.master_address
+    OWNER to postgres;
+
+
+---------------------------------
+
+-- Table: public.member
+
+-- DROP TABLE public.member;
+
+CREATE TABLE public.member
+(
+    "ID" integer NOT NULL,
+    "Name" text COLLATE pg_catalog."default" NOT NULL,
+    "Mobile_Number" integer NOT NULL,
+    "Email" character varying(100)[] COLLATE pg_catalog."default",
+    "DOB" date NOT NULL,
+    "Marital Status" character varying(20)[] COLLATE pg_catalog."default",
+    "Centre_ID" integer,
+    "KYC_ID" integer,
+    "Address_ID" integer NOT NULL,
+    "Gender" character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "Member_pkey" PRIMARY KEY ("ID"),
+    CONSTRAINT "Member_Centre_ID_fkey" FOREIGN KEY ("Centre_ID")
+        REFERENCES public.centre ("ID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT kyc FOREIGN KEY ("KYC_ID")
+        REFERENCES public.kyc_id ("ID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT "member_Address_ID_fkey" FOREIGN KEY ("Address_ID")
+        REFERENCES public.master_address ("ID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.member
+    OWNER to postgres;
+
+
+---------------------------------------------
+
+-- Table: public.user_detail
+
+-- DROP TABLE public.user_detail;
+
+CREATE TABLE public.user_detail
+(
+    "ID" integer NOT NULL,
+    "Username" character varying COLLATE pg_catalog."default" NOT NULL,
+    "Password" character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT login_details_pkey PRIMARY KEY ("ID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.user_detail
+    OWNER to postgres;
+

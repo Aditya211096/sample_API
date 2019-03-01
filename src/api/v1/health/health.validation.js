@@ -1,0 +1,4 @@
+
+exports.health = {
+  body: { }
+};

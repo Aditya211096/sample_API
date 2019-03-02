@@ -141,7 +141,7 @@ exports.deleteUser = async (payload) => {
 exports.getMembers = async (payload) => {
   var dbconnection = GetDBConnection();
   return new Promise(async (resolve, reject) => {
-    dbconnection("member").select('ID', 'Name')
+    dbconnection("member").select('Name', 'Mobile_Number')
         .then(success => {
           resolve(success);
         })

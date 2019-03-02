@@ -125,3 +125,37 @@ TABLESPACE pg_default;
 ALTER TABLE public.user_detail
     OWNER to postgres;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+http://127.0.0.1:59215/browser/#
